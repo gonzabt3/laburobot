@@ -26,9 +26,10 @@ class TelegramClient
     }.merge(opts).to_json, headers: { "Content-Type" => "application/json" })
   end
 
-  def self.set_webhook(url:)
-    post(api_url("setWebhook"), body: { url: url }.to_json,
-         headers: { "Content-Type" => "application/json" })
+  def self.set_webhook(url:, secret_token: nil)
+    body = { url: url }
+    body[:secret_token] = secret_token if secret_token.present?
+    post(api_url("setWebhook"), body: body.to_json, headers: { "Content-Type" => "application/json" })
   end
 
   def self.delete_webhook

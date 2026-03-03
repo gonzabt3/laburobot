@@ -1,7 +1,10 @@
 module Telegram
   class WebhooksController < ApplicationController
-    # Disable CSRF verification for webhook endpoint (Telegram sends POST requests)
+    # CSRF verification is disabled for this webhook endpoint because Telegram sends
+    # standard POST requests without CSRF tokens. Security is instead enforced by
+    # validating the X-Telegram-Bot-Api-Secret-Token header (see verify_telegram_secret!).
     skip_before_action :verify_authenticity_token
+    before_action :verify_telegram_secret!
 
     # POST /telegram/webhook
     # Receives Telegram updates and routes them through ConversationRouter.
@@ -43,6 +46,20 @@ module Telegram
     end
 
     private
+
+    # Validates the X-Telegram-Bot-Api-Secret-Token header.
+    # Set TELEGRAM_WEBHOOK_SECRET to the same value you use when registering the webhook:
+    #   TelegramClient.set_webhook(url: "...", secret_token: ENV["TELEGRAM_WEBHOOK_SECRET"])
+    # When the env var is not set (e.g. in development), validation is skipped.
+    def verify_telegram_secret!
+      secret = ENV["TELEGRAM_WEBHOOK_SECRET"]
+      return unless secret.present?
+
+      provided = request.headers["X-Telegram-Bot-Api-Secret-Token"]
+      unless provided.present? && ActiveSupport::SecurityUtils.secure_compare(provided, secret)
+        render json: { error: "Unauthorized" }, status: :unauthorized
+      end
+    end
 
     # Extract a usable identifier for the sender.
     # Telegram doesn't expose phone by default, so we use chat_id prefixed with "+tg"

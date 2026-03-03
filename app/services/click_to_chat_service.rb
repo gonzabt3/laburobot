@@ -31,14 +31,13 @@ class ClickToChatService
     end
   end
 
-  # Builds a prefilled message for a provider introduction
+  # Builds a prefilled message for a client to send to a provider
   def self.provider_intro_message(provider_profile:, service_request:)
-    user   = provider_profile.user
-    cats   = provider_profile.categories_list.first(3).join(", ")
+    cats = provider_profile.categories_list.first(3).join(", ")
 
     "Hola! Te contacto desde LaburoBot. " \
-    "Ofrezco servicios de #{cats}. " \
-    "Vi que necesitás: #{service_request.details.truncate(120)}. " \
-    "¿Podemos hablar?"
+    "Busco servicios de #{cats}. " \
+    "Necesito: #{service_request.details.truncate(120)}. " \
+    "¿Estás disponible?"
   end
 end
