@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="<%= form_authenticity_token %>">
+    <title>LaburoBot Admin</title>
+    <%= stylesheet_pack_tag "admin" %>
+  </head>
+  <body>
+    <%= yield %>
+    <%= javascript_pack_tag "admin" %>
+  </body>
+</html>

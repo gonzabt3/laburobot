@@ -1,0 +1,26 @@
+<%
+  providers_data = @provider_profiles&.map do |p|
+    {
+      id: p.id,
+      user_phone: p.user.phone_e164,
+      categories: p.categories,
+      service_area_type: p.service_area_type,
+      active: p.active
+    }
+  end || []
+
+  reports_data = @reports&.map do |r|
+    {
+      id: r.id,
+      reporter_phone: r.reporter_user.phone_e164,
+      target_phone: r.target_user.phone_e164,
+      reason: r.reason,
+      status: r.status
+    }
+  end || []
+%>
+<%= react_component(
+      "AdminDashboard",
+      props: { stats: @stats, providers: providers_data, reports: reports_data },
+      prerender: false
+    ) %>

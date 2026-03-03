@@ -1,0 +1,39 @@
+# Ignore bundler config.
+/.bundle
+
+# Ignore all environment files (except example).
+/.env
+/.env.local
+/.env.*.local
+
+# Ignore all default key files.
+/config/master.key
+/config/credentials/*.key
+
+# Ignore all logfiles and tempfiles.
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+
+# Ignore pidfiles, but keep the directory.
+/tmp/pids/*
+!/tmp/pids/.keep
+
+# Ignore storage (uploaded files in development and any SQLite databases).
+/storage/*
+!/storage/.keep
+/tmp/storage/*
+!/tmp/storage/.keep
+
+# Ignore assets.
+/node_modules/
+/public/assets
+/public/packs
+/public/packs-test
+
+# Ignore test coverage.
+/coverage
+
+# Ignore Kamal-related files in gitignore but keep deploy structure
+.kamal/secrets
