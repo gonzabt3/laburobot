@@ -1,0 +1,9 @@
+client_one:
+  phone_e164: "+5491112345678"
+  role: 0
+  status: 0
+
+provider_one:
+  phone_e164: "+5491187654321"
+  role: 1
+  status: 0

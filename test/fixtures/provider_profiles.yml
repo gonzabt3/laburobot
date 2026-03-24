@@ -1,0 +1,7 @@
+profile_one:
+  user: provider_one
+  categories: "plomeria,electricidad"
+  description: "Servicio profesional"
+  active: true
+  service_area_type: 0
+  max_distance_km: 50
