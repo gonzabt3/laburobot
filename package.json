@@ -21,6 +21,8 @@
     "@pmmmwh/react-refresh-webpack-plugin": "0.6.2",
     "@swc/core": "1.15.18",
     "react-refresh": "0.18.0",
-    "swc-loader": "0.2.7"
+    "swc-loader": "0.2.7",
+    "webpack": "^5.105.4",
+    "webpack-cli": "^6.0.1"
   }
 }

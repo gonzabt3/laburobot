@@ -7,7 +7,7 @@ module Telegram
     before_action :verify_telegram_secret!
 
     # POST /telegram/webhook
-    # Receives Telegram updates and routes them through ConversationRouter.
+    # Receives Telegram updates and routes them through ConversationStateMachine.
     def create
       update = params.permit!.to_h
 
@@ -22,19 +22,20 @@ module Telegram
       text         = message["text"].to_s.strip
       sender_phone = extract_phone(message)
 
-      # Skip non-text messages for MVP
+      # Skip non-text messages for now
       if text.blank?
         send_reply(chat_id, "Por ahora solo proceso mensajes de texto. ¡Escribíme algo!")
         render json: { ok: true }, status: :ok
         return
       end
 
-      # Route through conversation router
-      result = ConversationRouter.route(
-        channel:      :telegram,
-        sender_phone: sender_phone,
-        text:         text,
-        extras:       { chat_id: chat_id, raw_update: update }
+      # Route through stateful conversation machine
+      result = ConversationStateMachine.process(
+        channel:         :telegram,
+        channel_user_id: sender_phone,
+        sender_phone:    sender_phone,
+        text:            text,
+        extras:          { chat_id: chat_id, raw_update: update }
       )
 
       send_reply(chat_id, result.reply) if result.reply.present?

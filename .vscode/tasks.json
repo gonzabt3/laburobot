@@ -1,0 +1,37 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Install Dependencies",
+			"type": "shell",
+			"command": "bundle install && npm install",
+			"group": "build",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Rails Server",
+			"type": "shell",
+			"command": "eval \"$(rbenv init - zsh)\" && bundle exec rails server -p 3000",
+			"group": "build",
+			"isBackground": true,
+			"problemMatcher": []
+		},
+		{
+			"label": "Webpack Dev Server",
+			"type": "shell",
+			"command": "eval \"$(rbenv init - zsh)\" && WEBPACK_SERVE=true bin/shakapacker-dev-server",
+			"group": "build",
+			"isBackground": true,
+			"problemMatcher": []
+		},
+		{
+			"label": "Run Tests",
+			"type": "shell",
+			"command": "eval \"$(rbenv init - zsh)\" && bundle exec rails test",
+			"group": "test",
+			"isBackground": false,
+			"problemMatcher": []
+		}
+	]
+}
