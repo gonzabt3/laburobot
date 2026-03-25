@@ -12,12 +12,14 @@ services:
     buildCommand: |
       bundle install
       npm install
-      SECRET_KEY_BASE_DUMMY=1 bundle exec rails assets:precompile
-      bundle exec rails db:prepare
+      SECRET_KEY_BASE=${SECRET_KEY_BASE:-dummy_key_for_precompile} bundle exec rails assets:precompile
+    preDeployCommand: bundle exec rails db:prepare
     startCommand: bundle exec rails server -b 0.0.0.0 -p $PORT
     envVars:
       - key: RAILS_ENV
         value: production
+      - key: SECRET_KEY_BASE
+        generateValue: true
       - key: RAILS_MASTER_KEY
         sync: false
       - key: TELEGRAM_BOT_TOKEN
