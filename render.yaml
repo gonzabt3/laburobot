@@ -9,10 +9,7 @@ services:
     name: laburobot
     runtime: ruby
     plan: free
-    buildCommand: |
-      bundle install
-      npm install
-      SECRET_KEY_BASE=${SECRET_KEY_BASE:-dummy_key_for_precompile} bundle exec rails assets:precompile
+    buildCommand: ./bin/render-build
     preDeployCommand: bundle exec rails db:prepare
     startCommand: bundle exec rails server -b 0.0.0.0 -p $PORT
     envVars:

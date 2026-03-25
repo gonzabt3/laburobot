@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -e
+
+echo "==> Installing gems..."
+bundle install
+
+echo "==> Installing JS dependencies..."
+npm install
+
+echo "==> Precompiling assets..."
+export SECRET_KEY_BASE_DUMMY=1
+bundle exec rails assets:precompile
+
+echo "==> Build complete!"
