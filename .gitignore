@@ -37,3 +37,7 @@
 
 # Ignore Kamal-related files in gitignore but keep deploy structure
 .kamal/secrets
+
+# Ignore key files for decrypting credentials and more.
+/config/*.key
+
