@@ -1,0 +1,30 @@
+databases:
+  - name: laburobot-db
+    plan: free
+    databaseName: laburobot_production
+    user: laburobot
+
+services:
+  - type: web
+    name: laburobot
+    runtime: ruby
+    plan: free
+    buildCommand: |
+      bundle install
+      npm install
+      SECRET_KEY_BASE_DUMMY=1 bundle exec rails assets:precompile
+      bundle exec rails db:prepare
+    startCommand: bundle exec rails server -b 0.0.0.0 -p $PORT
+    envVars:
+      - key: RAILS_ENV
+        value: production
+      - key: RAILS_MASTER_KEY
+        sync: false
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: TELEGRAM_WEBHOOK_SECRET
+        sync: false
+      - key: DATABASE_URL
+        fromDatabase:
+          name: laburobot-db
+          property: connectionString
