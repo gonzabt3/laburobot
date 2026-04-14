@@ -20,7 +20,7 @@ gem "jbuilder"
 # React on Rails: server-rendered React with Rails [https://github.com/shakacode/react_on_rails]
 gem "react_on_rails", "~> 16"
 # Shakapacker: webpack bundler for React on Rails
-gem "shakapacker", "~> 9"
+gem "shakapacker", "~> 10"
 
 # HTTP client for Telegram/external APIs
 gem "httparty"
